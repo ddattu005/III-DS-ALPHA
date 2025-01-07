@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Carousel with Indicators</title>
+  <style>
+    .carousel-container {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      margin: 40px auto;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .carousel-item.active {
+      opacity: 1;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background-color: #333;
+    }
+
+    .indicator:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel-container">
+    <div class="carousel">
+      <div class="carousel-item active">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg2.png" alt="Image 1">
+      </div>
+      <div class="carousel-item">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg.jpg" alt="Image 2">
+      </div>
+      <div class="carousel-item">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg3.jpg" alt="Image 3">
+      </div>
+    </div>
+    <div class="indicators">
+      <span class="indicator active"></span>
+      <span class="indicator"></span>
+      <span class="indicator"></span>
+    </div>
+  </div>
+  <script>
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentCarouselIndex = 0;
+
+    // Auto-play
+    setInterval(() => {
+      currentCarouselIndex++;
+      if (currentCarouselIndex >= carouselItems.length) {
+        currentCarouselIndex = 0;
+      }
+      updateCarousel();
+    }, 3000);
+
+    // Indicator click event
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        currentCarouselIndex = index;
+        updateCarousel();
+      });
+    });
+
+    // Update carousel
+    function updateCarousel() {
+      carouselItems.forEach((item, index) => {
+        item.classList.remove('active');
+        if (index === currentCarouselIndex) {
+          item.classList.add('active');
+        }
+      });
+      indicators.forEach((indicator, index) => {
+        indicator.classList.remove('active');
+        if (index === currentCarouselIndex) {
+          indicator.classList.add('active');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
