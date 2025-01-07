@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,16 +69,19 @@
     const overlay = document.querySelector('.modal-overlay');
     const closeButton = document.querySelector('.close-modal');
     const modalButton = document.querySelector('.modal-button');
+
     // Open modal on button click
     modalButton.addEventListener('click', () => {
       overlay.style.display = 'block';
       modal.style.transform = 'translate(-50%, -50%) scale(1)';
     });
+
     // Close modal on close button click
     closeButton.addEventListener('click', () => {
       overlay.style.display = 'none';
       modal.style.transform = 'translate(-50%, -50%) scale(0)';
     });
+
     // Close modal on overlay click
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
