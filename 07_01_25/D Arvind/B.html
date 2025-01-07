@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Dropdown Menu</title>
+  <style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .dropdown-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .dropdown-btn:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown">
+    <button class="dropdown-btn">Select an Option</button>
+    <div class="dropdown-content">
+      <a href="#" data-value="Option 1">1.
+        10
+      </a>
+      <a href="#" data-value="Option 2">2.
+        200
+      </a>
+      <a href="#" data-value="Option 3">3.
+        160
+      </a>
+    </div>
+  </div>
+  <p id="selected-value">Selected Value: None</p>
+  <script>
+    document.querySelectorAll('.dropdown-content a').forEach(option => {
+      option.addEventListener('click', function(event) {
+        event.preventDefault();
+        const value = this.getAttribute('data-value');
+        document.getElementById('selected-value').textContent = `Selected Value: ${value}`;
+      });
+    });
+  </script>
+</body>
+</html>
