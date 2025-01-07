@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inline Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        .error {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .success {
+            color: #5cb85c;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Login Form</h2>
+    <form id="loginForm" novalidate>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <div class="error" id="passwordError"></div>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+
+<script>
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    emailInput.addEventListener('input', () => {
+        const email = emailInput.value.trim();
+        if (!emailRegex.test(email)) {
+            emailError.textContent = 'Please enter a valid email address.';
+            emailInput.style.borderColor = '#d9534f';
+        } else {
+            emailError.textContent = 'Valid email!';
+            emailError.className = 'success';
+            emailInput.style.borderColor = '#5cb85c';
+        }
+    });
+
+    passwordInput.addEventListener('input', () => {
+        const password = passwordInput.value.trim();
+        if (password.length < 6) {
+            passwordError.textContent = 'Password must be at least 6 characters.';
+            passwordInput.style.borderColor = '#d9534f';
+        } else {
+            passwordError.textContent = 'Password is valid!';
+            passwordError.className = 'success';
+            passwordInput.style.borderColor = '#5cb85c';
+        }
+    });
+
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent form submission for demo
+        alert('Form submitted successfully!');
+    });
+</script>
+
+</body>
+</html>

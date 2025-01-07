@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Dropdown Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 200px;
+        }
+        .dropdown-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .dropdown-btn:hover {
+            background-color: #0056b3;
+        }
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            z-index: 1;
+        }
+        .dropdown-content.active {
+            max-height: 200px; /* Adjust height for visible items */
+            overflow-y: auto;
+        }
+        .dropdown-content div {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dropdown-content div:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        .dropdown-arrow.rotate {
+            transform: rotate(180deg);
+        }
+        .selected-value {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dropdown">
+    <button class="dropdown-btn">
+        <span>Select an option</span>
+        <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="dropdown-content">
+        <div data-value="Option 1">Option 1</div>
+        <div data-value="Option 2">Option 2</div>
+        <div data-value="Option 3">Option 3</div>
+        <div data-value="Option 4">Option 4</div>
+    </div>
+</div>
+
+<div class="selected-value">Selected Value: None</div>
+
+<script>
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const dropdownArrow = document.querySelector('.dropdown-arrow');
+    const selectedValueDisplay = document.querySelector('.selected-value');
+    const options = document.querySelectorAll('.dropdown-content div');
+
+    dropdownBtn.addEventListener('click', () => {
+        dropdownContent.classList.toggle('active');
+        dropdownArrow.classList.toggle('rotate');
+    });
+
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            const selectedValue = option.getAttribute('data-value');
+            dropdownBtn.querySelector('span:first-child').textContent = selectedValue;
+            selectedValueDisplay.textContent = `Selected Value: ${selectedValue}`;
+            dropdownContent.classList.remove('active');
+            dropdownArrow.classList.remove('rotate');
+        });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+            dropdownContent.classList.remove('active');
+            dropdownArrow.classList.remove('rotate');
+        }
+    });
+</script>
+
+</body>
+</html>
