@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Dropdown Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .dropdown-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .dropdown-button {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-button:hover {
+            background-color: #0066cc;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .dropdown-options.show {
+            max-height: 200px;
+        }
+
+        .dropdown-options div {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-options div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .selected-value {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .arrow {
+            transition: transform 0.3s;
+        }
+
+        .arrow.open {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown-container">
+        <button class="dropdown-button" id="dropdown-button">
+            Select an option
+            <span class="arrow" id="arrow">&#9660;</span>
+        </button>
+        <div class="dropdown-options" id="dropdown-options">
+            <div data-value="Option 1">Option 1</div>
+            <div data-value="Option 2">Option 2</div>
+            <div data-value="Option 3">Option 3</div>
+            <div data-value="Option 4">Option 4</div>
+        </div>
+        <div class="selected-value" id="selected-value">No option selected</div>
+    </div>
+
+    <script>
+        const dropdownButton = document.getElementById('dropdown-button');
+        const dropdownOptions = document.getElementById('dropdown-options');
+        const selectedValue = document.getElementById('selected-value');
+        const arrow = document.getElementById('arrow');
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownOptions.classList.toggle('show');
+            arrow.classList.toggle('open');
+        });
+
+        dropdownOptions.addEventListener('click', (e) => {
+            if (e.target && e.target.matches('div[data-value]')) {
+                selectedValue.textContent = `Selected: ${e.target.getAttribute('data-value')}`;
+                dropdownOptions.classList.remove('show');
+                arrow.classList.remove('open');
+            }
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener('click', (e) => {
+            if (!dropdownButton.contains(e.target) && !dropdownOptions.contains(e.target)) {
+                dropdownOptions.classList.remove('show');
+                arrow.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
