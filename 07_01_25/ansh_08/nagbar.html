@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Navigation Bar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #333;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 18px;
+            transition: color 0.3s, transform 0.3s;
+        }
+        nav a:hover {
+            color: #ff9800;
+            transform: scale(1.1);
+        }
+        .active {
+            border-bottom: 2px solid #ff9800;
+        }
+        section {
+            padding: 100px 20px;
+            height: 100vh;
+        }
+        #home {
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #about {
+            background: #e0e0e0;
+        }
+        #services {
+            background: #ccc;
+        }
+        #contact {
+            background: #b0bec5;
+        }
+        .content {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="content">
+            <h1>Welcome to Our Website</h1>
+            <p>Your one-stop destination for all your needs. Explore our services, learn more about us, and get in touch!</p>
+            <img src="https://via.placeholder.com/600x300" alt="Home Image">
+        </div>
+    </section>
+    <section id="about">
+        <div class="content">
+            <h1>About Us</h1>
+            <p>We are a leading company dedicated to providing top-quality solutions for our customers. Our team of experts works tirelessly to bring innovative ideas to life.</p>
+            <img src="https://via.placeholder.com/600x300" alt="About Us Image">
+        </div>
+    </section>
+    <section id="services">
+        <div class="content">
+            <h1>Our Services</h1>
+            <ul>
+                <li>Web Development</li>
+                <li>Mobile App Development</li>
+                <li>SEO Optimization</li>
+                <li>Cloud Solutions</li>
+            </ul>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="content">
+            <h1>Contact Us</h1>
+            <p>Have any questions? We'd love to hear from you!</p>
+            <p>Email: info@example.com</p>
+            <p>Phone: +1 234 567 890</p>
+            <p>Address: 1234 Elm Street, Anytown, USA</p>
+        </div>
+    </section>
+
+    <script>
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        function setActiveLink() {
+            let index = navLinks.length;
+            while (--index && window.scrollY + 50 < document.querySelector(navLinks[index].hash).offsetTop) {}
+            navLinks.forEach((link) => link.classList.remove('active'));
+            navLinks[index].classList.add('active');
+        }
+        
+        window.addEventListener('scroll', setActiveLink);
+        setActiveLink(); // Call once to highlight the initial section on load
+    </script>
+</body>
+</html>
