@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider with Dots</title>
+  <style>
+    /* General Reset */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    /* Slider Container */
+    .slider {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Slider Images */
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      transition: opacity 0.5s ease;
+    }
+
+    .slide img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Dots Navigation */
+    .dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    /* Hover Effect */
+    .slide img:hover {
+      transform: scale(1.05);
+      transition: transform 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider">
+    <!-- Slides -->
+    <div class="slides">
+      <div class="slide">
+        <img src="https://via.placeholder.com/600x300?text=Image+1" alt="Image 1">
+      </div>
+      <div class="slide">
+        <img src="https://via.placeholder.com/600x300?text=Image+2" alt="Image 2">
+      </div>
+      <div class="slide">
+        <img src="https://via.placeholder.com/600x300?text=Image+3" alt="Image 3">
+      </div>
+    </div>
+
+    <!-- Dots Navigation -->
+    <div class="dots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelector('.slides');
+    const dots = document.querySelectorAll('.dot');
+    const slideCount = dots.length;
+    let currentIndex = 0;
+    let interval;
+
+    // Update slider position
+    function updateSlider(index) {
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+      currentIndex = index;
+    }
+
+    // Auto-play function
+    function startAutoPlay() {
+      interval = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % slideCount;
+        updateSlider(nextIndex);
+      }, 3000);
+    }
+
+    // Stop auto-play on hover
+    function stopAutoPlay() {
+      clearInterval(interval);
+    }
+
+    // Add event listeners to dots
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        updateSlider(index);
+      });
+    });
+
+    // Start auto-play
+    startAutoPlay();
+
+    // Pause auto-play on hover
+    slides.addEventListener('mouseenter', stopAutoPlay);
+    slides.addEventListener('mouseleave', startAutoPlay);
+  </script>
+</body>
+</html>

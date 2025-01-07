@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slider-image {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 15px;
+      height: 15px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .dot.active {
+      background-color: rgba(255, 255, 255, 1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider-container">
+    <div class="slider">
+      <img src="https://rukminim2.flixcart.com/image/850/1000/kqqykcw0/sticker/s/h/i/funny-doremon-wall-stickers-size-pack-of-1-medium-89-as06-sahaj-original-imag4zux8vn9nhwg.jpeg?q=90&crop=false" alt="Image 1" class="slider-image">
+      <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/sticker/4/0/h/medium-doremon-funny-comics-cartoon-1-60-d-59-krishna-sticker-original-imagxz99hfwvyf25.jpeg?q=90&crop=false" alt="Image 2" class="slider-image">
+      <img src="https://ih1.redbubble.net/image.3975106079.5329/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Image 3" class="slider-image">
+    </div>
+    <div class="dots">
+      <span class="dot" onclick="changeSlide(0)"></span>
+      <span class="dot" onclick="changeSlide(1)"></span>
+      <span class="dot" onclick="changeSlide(2)"></span>
+    </div>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.slider-image');
+    const dots = document.querySelectorAll('.dot');
+    const slider = document.querySelector('.slider');
+
+    function changeSlide(index) {
+      currentIndex = index;
+      updateSlider();
+    }
+
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, idx) => {
+        dot.classList.remove('active');
+        if (idx === currentIndex) dot.classList.add('active');
+      });
+    }
+
+    function autoPlay() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateSlider();
+    }
+
+    setInterval(autoPlay, 3000); // Auto-play every 3 seconds
+
+    // Initialize the first slide
+    updateSlider();
+  </script>
+
+</body>
+</html>
