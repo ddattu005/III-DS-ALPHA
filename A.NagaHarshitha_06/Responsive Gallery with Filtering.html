@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Gallery with Filtering</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="filter-buttons">
+      <button onclick="filterGallery('all')">All</button>
+      <button onclick="filterGallery('nature')">Nature</button>
+      <button onclick="filterGallery('animals')">Animals</button>
+    </div>
+    <div class="gallery">
+      <div class="gallery-item" data-category="nature">
+        <img src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?cs=srgb&dl=clouds-cloudy-countryside-236047.jpg&fm=jpg" alt="Nature 1">
+      </div>
+      <div class="gallery-item" data-category="animals">
+        <img src="https://tse4.mm.bing.net/th?id=OIP.tZvJ2fU71rpEbJUm8advHwHaEK&pid=Api&P=0&h=180" alt="Animals 1">
+      </div>
+      <div class="gallery-item" data-category="nature">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.tH6n9qULZTjMCUWGPnRe_QHaEo&pid=Api&P=0&h=180" alt="Nature 2">
+      </div>
+      <div class="gallery-item" data-category="animals">
+        <img src="https://tse4.mm.bing.net/th?id=OIP.nocxa-Pl5LYzZUXFzBqWvAHaEK&pid=Api&P=0&h=180" alt="Animals 2">
+      </div>
+      <div class="gallery-item" data-category="nature">
+        <img src="https://vastphotos.com/files/uploads/photos/10150/high-resolution-nature-landscape-l.jpg" alt="Nature 3">
+      </div>
+    </div>
+  </div>
+  <script>
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
