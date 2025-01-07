@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-face card-front">
+                <img src="https://imgcdn.stablediffusionweb.com/2024/9/11/733be6d9-73d1-4c09-9db6-42c4f68087a3.jpg" alt="Pikachu">
+                <h2>Pikachu</h2>
+                <button class="toggle-btn" onclick="toggleFlip()">INFO</button>
+            </div>
+            <div class="card-face card-back">
+                <p>HP      : 25</p>
+                <p>ATTACK  : 55</p>
+                <p>DEFENCE : 40</p>
+                <p>SPEED   : 90</p>
+                <button class="toggle-btn" onclick="toggleFlip()">BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFlip() {
+            const card = document.getElementById('card');
+            card.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>
