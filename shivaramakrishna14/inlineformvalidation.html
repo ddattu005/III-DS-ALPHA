@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .error {
+      color: #f00;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .success {
+      color: #0a0;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      height: 40px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+      <span class="error" id="emailError">Invalid email format</span>
+      <span class="success" id="emailSuccess">Looks good!</span>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <span class="error" id="passwordError">Password must be at least 8 characters</span>
+      <span class="success" id="passwordSuccess">Looks good!</span>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('emailError');
+    const emailSuccess = document.getElementById('emailSuccess');
+    const passwordError = document.getElementById('passwordError');
+    const passwordSuccess = document.getElementById('passwordSuccess');
+
+    emailInput.addEventListener('input', () => {
+      const emailValue = emailInput.value.trim();
+      if (emailValue === '') {
+        emailError.textContent = 'Email is required';
+        emailError.style.display = 'block';
+        emailSuccess.style.display = 'none';
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)) {
+        emailError.textContent = 'Invalid email format';
+        emailError.style.display = 'block';
+        emailSuccess.style.display = 'none';
+      } else {
+        emailError.style.display = 'none';
+        emailSuccess.textContent = 'Looks good!';
+        emailSuccess.style.display = 'block';
+      }
+    });
+
+    passwordInput.addEventListener('input', () => {
+      const passwordValue = passwordInput.value.trim();
+      if (passwordValue === '') {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+        passwordSuccess.style.display = 'none';
+      } else if (passwordValue.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters';
+        passwordError.style.display = 'block';
+        passwordSuccess.style.display = 'none';
+      } else {
+        passwordError.style.display = 'none';
+        passwordSuccess.textContent = 'Looks good!';
+        passwordSuccess.style.display = 'block';
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailValue = emailInput.value.trim();
+      const passwordValue = passwordInput.value.trim();
+
+      if (emailValue === '' || passwordValue === '') {
+        alert('Please fill in all fields');
+      } else if (emailError.style.display === 'block' || passwordError.style.display === 'block') {
+        alert('Please correct the errors before submitting');
+      } else {
+        alert('Form submitted successfully!');
+        // Here you can add code to handle form submission, like sending data to a server.
+      }
+    });
+  </script>
+</body>
+</html>
