@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-step Form with Progress Bar</title>
+  <style>
+    .progress-bar {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .progress-bar-inner {
+      height: 20px;
+      width: 0;
+      background-color: #4caf50;
+      text-align: center;
+      color: white;
+      line-height: 20px;
+      transition: width 0.3s;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .navigation-buttons {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar">
+    <div class="progress-bar-inner">0%</div>
+  </div>
+  <form id="multiStepForm">
+    <div class="step active">
+      <h2>Step 1</h2>
+      <p>go for the user name </p>
+      <div class="navigation-buttons">
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+    <div class="step">
+      <h2>Step 2</h2>
+      <p>provide the email</p>
+      <div class="navigation-buttons">
+        <button type="button" onclick="prevStep()">Previous</button>
+        <button type="button" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+    <div class="step">
+      <h2>Step 3</h2>
+      <p>set the password </p>
+      <div class="navigation-buttons">
+        <button type="button" onclick="prevStep()">Previous</button>
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step');
+    const progressBarInner = document.querySelector('.progress-bar-inner');
+
+    function updateProgressBar() {
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      progressBarInner.style.width = progress + '%';
+      progressBarInner.textContent = Math.round(progress) + '%';
+    }
+
+    function showStep(step) {
+      steps.forEach((stepElement, index) => {
+        stepElement.classList.remove('active');
+        if (index === step) {
+          stepElement.classList.add('active');
+        }
+      });
+      updateProgressBar();
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    document.getElementById('multiStepForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Form submitted!');
+    });
+
+    showStep(currentStep);
+  </script>
+</body>
+</html>
