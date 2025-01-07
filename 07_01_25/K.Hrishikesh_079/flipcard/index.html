@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Card with Flip Effect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-front">
+                <img src="https://d1yubxwr40j85y.cloudfront.net/t_gallery_card/v1700592607/cards/masters/POSTABLE282.png" alt="Card Image">
+                <h3>Best Wishes</h3>
+                <button onclick="toggleFlip()">flip it!</button>
+            </div>
+            <div class="card-back">
+                <h3>🎈</h3>
+                <p>May your day be filled with laughter, love, and endless joy.
+                    Here’s to another year of achieving your ambitious dreams! 🥳</p>
+                <button onclick="toggleFlip()">Back</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

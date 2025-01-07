@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Card with Flip Effect</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    /* Card Container */
+    .card-container {
+      perspective: 1000px;
+    }
+
+    /* Card Styles */
+    .card {
+      width: 300px;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .card.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-side {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-front {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .card-front h3 {
+      margin: 15px 0;
+      font-size: 1.5rem;
+    }
+
+    .card-back {
+      background: #0078d7;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      transform: rotateY(180deg);
+    }
+
+    .card-back p {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Button Styles */
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      color: #fff;
+      background: #0078d7;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card" id="card">
+      <!-- Front Side -->
+      <div class="card-side card-front">
+        <img src="https://via.placeholder.com/300x200" alt="Card Image">
+        <h3>Card Title</h3>
+        <p>Click the button for more info!</p>
+      </div>
+      <!-- Back Side -->
+      <div class="card-side card-back">
+        <h3>More Info</h3>
+        <p>This is additional information on the back of the card.</p>
+      </div>
+    </div>
+    <button id="flipButton">Flip Card</button>
+  </div>
+
+  <script>
+    const card = document.getElementById('card');
+    const flipButton = document.getElementById('flipButton');
+
+    // Toggle the 'is-flipped' class on the card
+    flipButton.addEventListener('click', () => {
+      card.classList.toggle('is-flipped');
+    });
+  </script>
+</body>
+</html>

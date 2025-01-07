@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <style>
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .input-group input {
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .error-message {
+      color: #ff0000;
+      font-size: 12px;
+      display: none;
+    }
+    .success-message {
+      color: #00ff00;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <form id="user-form">
+    <div class="input-group">
+      <label for="user-email">Email:</label>
+      <input type="email" id="user-email" name="email">
+      <span class="error-message"></span>
+    </div>
+    <div class="input-group">
+      <label for="user-password">Password:</label>
+      <input type="password" id="user-password" name="password">
+      <span class="error-message"></span>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <script>
+    const userForm = document.getElementById('user-form');
+    const emailField = document.getElementById('user-email');
+    const passwordField = document.getElementById('user-password');
+
+    emailField.addEventListener('input', () => {
+      const emailValue = emailField.value.trim();
+      const emailError = document.querySelector('#user-email + .error-message');
+      if (emailValue === '') {
+        emailError.textContent = 'Email is required';
+        emailError.style.display = 'block';
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)) {
+        emailError.textContent = 'Invalid email format';
+        emailError.style.display = 'block';
+      } else {
+        emailError.textContent = '';
+        emailError.style.display = 'none';
+      }
+    });
+
+    passwordField.addEventListener('input', () => {
+      const passwordValue = passwordField.value.trim();
+      const passwordError = document.querySelector('#user-password + .error-message');
+      if (passwordValue === '') {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+      } else if (passwordValue.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters';
+        passwordError.style.display = 'block';
+      } else {
+        passwordError.textContent = '';
+        passwordError.style.display = 'none';
+      }
+    });
+
+    userForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailValue = emailField.value.trim();
+      const passwordValue = passwordField.value.trim();
+      if (emailValue === '' || passwordValue === '') {
+        alert('Please fill in all fields');
+      } else {
+        alert('Form submitted successfully');
+        // Further form submission logic can go here
+      }
+    });
+  </script>
+</body>
+</html>

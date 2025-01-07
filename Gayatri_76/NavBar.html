@@ -1,0 +1,38 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NavBar</title>
+  <style>
+    body { margin: 0; font-family: Arial; scroll-behavior: smooth; }
+    header { position: fixed; top: 0; width: 100%; background: #333; }
+    nav a { color: white; text-decoration: none; padding: 10px 15px; display: inline-block; }
+    nav a:hover, nav a.active { background: #007bff; border-radius: 5px; }
+    section { height: 100vh; display: flex; justify-content: center; align-items: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section id="home" style="background: #f3f3f3;">Home</section>
+  <section id="about" style="background: #ddd;">About</section>
+  <section id="services" style="background: #bbb;">Services</section>
+  <section id="contact" style="background: #999;">Contact</section>
+  <script>
+    const links = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      links.forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+        link.classList.toggle('active', window.scrollY >= section.offsetTop - 50 && window.scrollY < section.offsetTop + section.offsetHeight);
+      });
+    });
+  </script>
+</body>
+</html>
