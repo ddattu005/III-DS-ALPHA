@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Dropdown Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    .dropdown-container {
+      position: relative;
+      width: 200px;
+    }
+
+    .dropdown-button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .dropdown-button:after {
+      content: '▼';
+      float: right;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      padding: 0;
+      margin: 5px 0 0;
+      display: none;
+      opacity: 0;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+      opacity: 1;
+      transform: scaleY(1);
+    }
+
+    .dropdown-item {
+      padding: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .selected-value {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown-container">
+    <button class="dropdown-button">Select an option</button>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item">Option 1</li>
+      <li class="dropdown-item">Option 2</li>
+      <li class="dropdown-item">Option 3</li>
+    </ul>
+    <div class="selected-value">Selected: None</div>
+  </div>
+  <script>
+    const dropdownButton = document.querySelector('.dropdown-button');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const selectedValue = document.querySelector('.selected-value');
+
+    // Toggle dropdown menu visibility
+    dropdownButton.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('show');
+    });
+
+    // Handle item selection
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        selectedValue.textContent = `Selected: ${item.textContent}`;
+        dropdownMenu.classList.remove('show');
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.dropdown-container')) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
