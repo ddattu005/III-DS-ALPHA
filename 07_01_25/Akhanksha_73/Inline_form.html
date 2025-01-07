@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline Form Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f9f9f9;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .error {
+      border-color: #e74c3c;
+    }
+    .success {
+      border-color: #2ecc71;
+    }
+    .feedback {
+      font-size: 12px;
+      margin-top: 5px;
+      color: #e74c3c;
+    }
+    .feedback.success {
+      color: #2ecc71;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:disabled {
+      background: #95a5a6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="validationForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <div class="feedback" id="emailFeedback"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <div class="feedback" id="passwordFeedback"></div>
+      </div>
+      <button type="submit" id="submitButton" disabled>Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailFeedback = document.getElementById('emailFeedback');
+    const passwordFeedback = document.getElementById('passwordFeedback');
+    const submitButton = document.getElementById('submitButton');
+
+    function validateEmail() {
+      const email = emailInput.value.trim();
+      if (!email) {
+        emailFeedback.textContent = 'Email is required.';
+        emailFeedback.className = 'feedback';
+        emailInput.className = 'error';
+        return false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailFeedback.textContent = 'Please enter a valid email.';
+        emailFeedback.className = 'feedback';
+        emailInput.className = 'error';
+        return false;
+      } else {
+        emailFeedback.textContent = 'Email looks good!';
+        emailFeedback.className = 'feedback success';
+        emailInput.className = 'success';
+        return true;
+      }
+    }
+
+    function validatePassword() {
+      const password = passwordInput.value.trim();
+      if (!password) {
+        passwordFeedback.textContent = 'Password is required.';
+        passwordFeedback.className = 'feedback';
+        passwordInput.className = 'error';
+        return false;
+      } else if (password.length < 6) {
+        passwordFeedback.textContent = 'Password must be at least 6 characters.';
+        passwordFeedback.className = 'feedback';
+        passwordInput.className = 'error';
+        return false;
+      } else {
+        passwordFeedback.textContent = 'Password looks good!';
+        passwordFeedback.className = 'feedback success';
+        passwordInput.className = 'success';
+        return true;
+      }
+    }
+
+    function validateForm() {
+      const isEmailValid = validateEmail();
+      const isPasswordValid = validatePassword();
+      submitButton.disabled = !(isEmailValid && isPasswordValid);
+    }
+
+    emailInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+
+    document.getElementById('validationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Form submitted successfully!');
+    });
+  </script>
+</body>
+</html>
