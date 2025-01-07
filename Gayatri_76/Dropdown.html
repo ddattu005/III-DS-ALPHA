@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Dropdown</title>
+  <style>
+    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f3f3f3; }
+    .dropdown { position: relative; width: 200px; }
+    .dropdown-btn { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; text-align: left; }
+    .dropdown-btn:after { content: '▼'; float: right; }
+    .dropdown-options { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .dropdown-options.active { display: block; }
+    .dropdown-options div { padding: 10px; cursor: pointer; transition: background 0.3s; }
+    .dropdown-options div:hover { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+    
+  <div class="dropdown">
+    <button class="dropdown-btn" id="dropdownBtn">Select from menu</button>
+    <div class="dropdown-options" id="dropdownOptions">
+      <div>cofee</div>
+      <div>tea </div>
+      <div>boost</div>
+    </div>
+  </div>
+
+  <script>
+    const dropdownBtn = document.getElementById('dropdownBtn');
+    const dropdownOptions = document.getElementById('dropdownOptions');
+
+    dropdownBtn.addEventListener('click', () => {
+      dropdownOptions.classList.toggle('active');
+    });
+
+    dropdownOptions.addEventListener('click', (e) => {
+      if (e.target.tagName === 'DIV') {
+        dropdownBtn.textContent = e.target.textContent;
+        dropdownOptions.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdownBtn.contains(e.target) && !dropdownOptions.contains(e.target)) {
+        dropdownOptions.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

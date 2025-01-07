@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Steps</title>
+  <style>
+    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .container { width: 300px; text-align: center; }
+    .progress { display: flex; margin-bottom: 20px; }
+    .step { flex: 1; padding: 10px; background: #ddd; border-radius: 50%; margin: 0 5px; }
+    .step.active { background: #007bff; color: white; }
+    .form { display: none; }
+    .form.active { display: block; }
+    button { padding: 5px 10px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="progress">
+      <div class="step active">1</div>
+      <div class="step">2</div>
+      <div class="step">3</div>
+    </div>
+    <div class="form active">Step 1 Content</div>
+    <div class="form">Step 2 Content</div>
+    <div class="form">Step 3 Content</div>
+    <button id="prev" disabled>Prev</button>
+    <button id="next">Next</button>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll('.step');
+    const forms = document.querySelectorAll('.form');
+    let current = 0;
+
+    function update() {
+      forms.forEach((form, i) => form.classList.toggle('active', i === current));
+      steps.forEach((step, i) => step.classList.toggle('active', i <= current));
+      document.getElementById('prev').disabled = current === 0;
+      document.getElementById('next').textContent = current === steps.length - 1 ? 'Finish' : 'Next';
+    }
+
+    document.getElementById('next').addEventListener('click', () => { if (current < steps.length - 1) current++; update(); });
+    document.getElementById('prev').addEventListener('click', () => { if (current > 0) current--; update(); });
+  </script>
+</body>
+</html>
