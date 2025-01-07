@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Gallery with Filtering</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .filter-buttons {
+      margin-bottom: 20px;
+    }
+    .filter-buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-item .tags {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="filter-buttons">
+    <button onclick="filterGallery('all')">All</button>
+    <button onclick="filterGallery('nature')">Nature</button>
+    <button onclick="filterGallery('animals')">Animals</button>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item" data-tags="nature">
+      <img src="http://wonderfulengineering.com/wp-content/uploads/2016/01/nature-wallpapers-8.jpg" alt="Nature 1">
+      <div class="tags">nature</div>
+    </div>
+    <div class="gallery-item" data-tags="animals">
+      <img src="https://tse2.mm.bing.net/th?id=OIP.A2JDlW2N1DW-t73m0ChQnwHaFw&pid=Api&P=0&h=180" alt="Animal 1">
+      <div class="tags">animals</div>
+    </div>
+    <div class="gallery-item" data-tags="nature">
+      <img src="https://wallup.net/wp-content/uploads/2016/03/10/318375-nature-landscape-lake-mountain-forest-wildflowers-spring-pine_trees-path-Switzerland-HDR.jpg" alt="Nature 2">
+      <div class="tags">nature</div>
+    </div>
+    <div class="gallery-item" data-tags="animals">
+      <img src="https://tse1.mm.bing.net/th?id=OIP.ioAPfQ2Zbl1Wk-4Z1IZeqwHaEK&pid=Api&P=0&h=180" alt="Animal 2">
+      <div class="tags">animals</div>
+    </div>
+    <!-- Add more gallery items as needed -->
+  </div>
+  <script>
+    function filterGallery(tag) {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        if (tag === 'all' || item.getAttribute('data-tags').includes(tag)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
