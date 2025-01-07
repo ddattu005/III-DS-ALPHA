@@ -1,0 +1,65 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+}
+
+.accordion {
+    width: 80%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #ccc;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #ff6f61;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 15px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.accordion-content p {
+    margin: 15px 0;
+}
+
+.accordion-header .arrow {
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active .arrow {
+    transform: rotate(90deg);
+}
+
+.accordion-header.active + .accordion-content {
+    max-height: 150px; /* Adjust based on your content */
+    padding: 15px;
+}

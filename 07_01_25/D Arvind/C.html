@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Navigation Bar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .navbar a {
+      padding: 14px 20px;
+      display: block;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .navbar a:hover {
+      background-color: #575757;
+    }
+    .navbar a.active {
+      background-color: #04AA6D;
+    }
+    .section {
+      height: 100vh;
+      padding: 60px 20px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ccc;
+    }
+    .section:nth-child(even) {
+      background-color: #e4e4e4;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#section1" class="nav-link">Section 1</a>
+    <a href="#section2" class="nav-link">Section 2</a>
+    <a href="#section3" class="nav-link">Section 3</a>
+    <a href="#section4" class="nav-link">Section 4</a>
+  </div>
+  <div id="section1" class="section">Section 1 Content
+    <img src="https://tse3.mm.bing.net/th?id=OIP.1JK9HpXb6c-f1q4AgDTQFAHaEo&pid=Api&P=0&h=180" alt="Image">
+  </div>
+
+  <div id="section2" class="section">Section 2 Content
+    <img src="https://tse4.mm.bing.net/th?id=OIP.anp0XQz24UeOEE5qf-5swQHaEo&pid=Api&P=0&h=180" alt="Image">
+  </div>
+  <div id="section3" class="section">Section 3 Content
+    <img src="https://tse3.mm.bing.net/th?id=OIP.1JK9HpXb6c-f1q4AgDTQFAHaEo&pid=Api&P=0&h=180" alt="Image">
+  </div>
+  <div id="section4" class="section">Section 4 Content
+    <img src="https://tse4.mm.bing.net/th?id=OIP.anp0XQz24UeOEE5qf-5swQHaEo&pid=Api&P=0&h=180" alt="Image">
+  </div>
+  <script>
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 60) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
