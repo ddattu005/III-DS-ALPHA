@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .button-container {
+      text-align: center;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 32px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Modal Box */
+    .modal-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(-50px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .modal-box.open {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background-color: #ff6347;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #ff4500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="button-container">
+    <button id="openModalBtn">Click Here</button>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-header">Modal Title</div>
+      <div class="modal-body">
+        <p>This is a modal dialog. You can put any content here.</p>
+      </div>
+      <button class="close-btn" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Get elements
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalBox = document.getElementById('modalBox');
+
+    // Open modal function
+    openModalBtn.addEventListener('click', function() {
+      modalOverlay.classList.add('open');
+      modalBox.classList.add('open');
+    });
+
+    // Close modal function
+    closeModalBtn.addEventListener('click', function() {
+      modalOverlay.classList.remove('open');
+      modalBox.classList.remove('open');
+    });
+
+    // Close modal when clicking outside of the modal box
+    modalOverlay.addEventListener('click', function(event) {
+      if (event.target === modalOverlay) {
+        modalOverlay.classList.remove('open');
+        modalBox.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>
