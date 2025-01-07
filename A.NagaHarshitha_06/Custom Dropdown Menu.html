@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Dropdown with Images</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      
+      align-items: center;
+      height: 100vh;
+    }
+
+    .dropdown-container {
+      width: 300px;
+      position: relative;
+    }
+
+    .dropdown-button {
+      background: #1e90ff;
+      color: #fff;
+      padding: 15px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-button:hover {
+      background: #0a74da;
+    }
+
+    .dropdown-options {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .dropdown-container.active .dropdown-options {
+      opacity: 1;
+      visibility: visible;
+      max-height: 300px;
+    }
+
+    .dropdown-options div {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-options div:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-options div:hover {
+      background: #1e90ff;
+      color: #fff;
+    }
+
+    .dropdown-options div img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .selected-display {
+      margin-top: 20px;
+      text-align: center;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .selected-display img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      animation: scaleIn 0.5s ease forwards;
+    }
+
+    .selected-display p {
+      font-size: 18px;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .selected-display span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown-container">
+    <button class="dropdown-button">
+      Select an option
+      <span>&#9662;</span>
+    </button>
+    <div class="dropdown-options">
+      <div data-value="Nature" data-image="https://tse3.mm.bing.net/th?id=OIP.tH6n9qULZTjMCUWGPnRe_QHaEo&pid=Api&P=0&h=180">
+        <img src="https://tse3.mm.bing.net/th?id=OIP.tH6n9qULZTjMCUWGPnRe_QHaEo&pid=Api&P=0&h=180" alt="Nature">
+        <span>Nature</span>
+      </div>
+      <div data-value="Animals" data-image="https://tse4.mm.bing.net/th?id=OIP.nocxa-Pl5LYzZUXFzBqWvAHaEK&pid=Api&P=0&h=180">
+        <img src="https://tse4.mm.bing.net/th?id=OIP.nocxa-Pl5LYzZUXFzBqWvAHaEK&pid=Api&P=0&h=180" alt="Animals">
+        <span>Animals</span>
+      </div>
+      <div data-value="Technology" data-image="https://wallpapercave.com/wp/wp1877444.jpg">
+        <img src="https://wallpapercave.com/wp/wp1877444.jpg" alt="Technology">
+        <span>Technology</span>
+      </div>
+      <div data-value="Space" data-image="https://images.hdqwalls.com/download/outer-digital-space-tq-1920x1080.jpg">
+        <img src="https://images.hdqwalls.com/download/outer-digital-space-tq-1920x1080.jpg" alt="Space">
+        <span>Space</span>
+      </div>
+    </div>
+  </div>
+  <div class="selected-display" style="display: none;">
+    <p>You have selected:</p>
+    <img src="" alt="Selected Option">
+    <span></span>
+  </div>
+
+  <script>
+    const dropdown = document.querySelector('.dropdown-container');
+    const dropdownButton = document.querySelector('.dropdown-button');
+    const dropdownOptions = document.querySelector('.dropdown-options');
+    const selectedDisplay = document.querySelector('.selected-display');
+    const selectedDisplayImg = selectedDisplay.querySelector('img');
+    const selectedDisplayText = selectedDisplay.querySelector('span');
+
+    dropdownButton.addEventListener('click', () => {
+      dropdown.classList.toggle('active');
+    });
+
+    dropdownOptions.addEventListener('click', (event) => {
+      if (event.target.closest('[data-value]')) {
+        const selectedOption = event.target.closest('[data-value]');
+        const selectedValue = selectedOption.getAttribute('data-value');
+        const selectedImage = selectedOption.getAttribute('data-image');
+
+        dropdownButton.firstChild.textContent = selectedValue;
+        selectedDisplayImg.src = selectedImage;
+        selectedDisplayText.textContent = selectedValue;
+        selectedDisplay.style.display = 'block';
+
+        dropdown.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
