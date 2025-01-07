@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            width: 500px;
+            height: 600px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card-front {
+            background-image: url('data:image/jpeg;base64,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');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .more-info {
+            color: #007BFF;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .card-container {
+                width: 90%;
+                height: auto;
+            }
+
+            .card {
+                height: auto;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-face card-front"></div>
+            <div class="card-face card-back">
+                <div class="card-title">Cat and Dog</div>
+                <p style="text-align: center;">This is the back of the card where additional details can be displayed.
+                    Cats and dogs have a range of interactions. The natural instincts of each species lead towards antagonistic interactions, though individual animals can have non-aggressive relationships with each other, particularly under conditions where humans have socialized non-aggressive behaviors.
+The generally aggressive interactions between the species have been noted in cultural expressions. In domestic homes where dogs and cats are reared and trained properly, they tend to relate well with each other, especially when their owner is taking good care of them.
+                </p>
+                <span class="more-info">Click here for more</span>
+            </div>
+        </div>
+    </div>
+    <button id="toggle-button">Flip Card</button>
+
+    <script>
+        const card = document.getElementById('card');
+        const button = document.getElementById('toggle-button');
+
+        button.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>

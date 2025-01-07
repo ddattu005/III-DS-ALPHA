@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,3 +123,129 @@
   </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider with Dots</title>
+  <style>
+    .slider-container {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      margin: 40px auto;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #333;
+    }
+
+    .dot:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slide active">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg2.png" alt="Image 1">
+      </div>
+      <div class="slide">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg.jpg" alt="Image 2">
+      </div>
+      <div class="slide">
+        <img src="C:\Users\vsrpr\OneDrive\Desktop\jpg3.jpg" alt="Image 3">
+      </div>
+    </div>
+    <div class="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+
+    // Auto-play
+    setInterval(() => {
+      currentSlide++;
+      if (currentSlide >= slides.length) {
+        currentSlide = 0;
+      }
+      updateSlides();
+    }, 3000);
+
+    // Dot click event
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateSlides();
+      });
+    });
+
+    // Update slides
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        }
+      });
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+>>>>>>> ebb206eccfddd52cc8a2340b8720cee242ca8017
