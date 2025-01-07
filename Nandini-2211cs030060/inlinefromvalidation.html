@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline Form Validation</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f8f9fa;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #0078d7;
+    }
+
+    .form-group small {
+      display: none;
+      font-size: 0.875rem;
+      color: red;
+      margin-top: 5px;
+    }
+
+    .form-group.success input {
+      border-color: #28a745;
+    }
+
+    .form-group.success small {
+      color: #28a745;
+      display: block;
+    }
+
+    .form-group.error input {
+      border-color: red;
+    }
+
+    .form-group.error small {
+      color: red;
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      background: #0078d7;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Login Form</h2>
+    <form id="loginForm" novalidate>
+      <!-- Email Field -->
+      <div class="form-group" id="emailGroup">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <small>Error message</small>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group" id="passwordGroup">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <small>Error message</small>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const emailGroup = document.getElementById('emailGroup');
+    const passwordGroup = document.getElementById('passwordGroup');
+
+    // Add event listeners for real-time validation
+    email.addEventListener('input', validateEmail);
+    password.addEventListener('input', validatePassword);
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form submission for demonstration
+      validateEmail();
+      validatePassword();
+    });
+
+    function validateEmail() {
+      const emailValue = email.value.trim();
+      if (!emailValue) {
+        setError(emailGroup, 'Email is required');
+      } else if (!isValidEmail(emailValue)) {
+        setError(emailGroup, 'Enter a valid email address');
+      } else {
+        setSuccess(emailGroup, 'Looks good!');
+      }
+    }
+
+    function validatePassword() {
+      const passwordValue = password.value.trim();
+      if (!passwordValue) {
+        setError(passwordGroup, 'Password is required');
+      } else if (passwordValue.length < 6) {
+        setError(passwordGroup, 'Password must be at least 6 characters');
+      } else {
+        setSuccess(passwordGroup, 'Looks good!');
+      }
+    }
+
+    function setError(group, message) {
+      group.classList.add('error');
+      group.classList.remove('success');
+      const small = group.querySelector('small');
+      small.innerText = message;
+      small.style.display = 'block';
+    }
+
+    function setSuccess(group, message) {
+      group.classList.add('success');
+      group.classList.remove('error');
+      const small = group.querySelector('small');
+      small.innerText = message;
+      small.style.display = 'block';
+    }
+
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+  </script>
+</body>
+</html>
