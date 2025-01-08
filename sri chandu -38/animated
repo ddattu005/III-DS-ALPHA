@@ -6,7 +6,7 @@
   <title>Responsive Card with Flip Effect</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
