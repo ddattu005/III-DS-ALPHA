@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .card-container {
+    perspective: 1000px; /* Add perspective for the flip effect */
+  }
+  
+  .card {
+    width: 250px;
+    height: 350px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  
+  .card:hover .card-inner {
+    transform: rotateY(180deg); /* Flip effect */
+  }
+  
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back face */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .card-front {
+    background-color: #fff;
+  }
+  
+  .card-back {
+    background-color: #e1e1e1;
+    transform: rotateY(180deg); /* Initially rotated to the back */
+  }
+  
+  .card-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .more-info-btn, .toggle-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .more-info-btn:hover, .toggle-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      width: 200px;
+      height: 300px;
+    }
+  
+    .card-title {
+      font-size: 1.2em;
+    }
+  }
+  
