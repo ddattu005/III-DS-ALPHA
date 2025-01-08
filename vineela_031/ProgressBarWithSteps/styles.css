@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: border-color 0.3s;
+}
+
+.step.active {
+    border-color: #007bff;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#prev-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+#prev-btn:hover:not(:disabled) {
+    background-color: #5a6268;
+}
+
+#next-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+#next-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+}
